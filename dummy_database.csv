@@ -1,0 +1,31 @@
+id_product,name,description,id_category,id_supplier,quantity
+1,Smartphone XYZ,High-end smartphone with 128GB storage,ELECTRONICS,101,50
+2,Bluetooth Headphones,Noise-cancelling wireless headphones,ELECTRONICS,102,100
+3,Organic Coffee Beans,100% Arabica coffee beans,FOOD,201,200
+4,Stainless Steel Water Bottle,Eco-friendly and durable,HOME,301,150
+5,Yoga Mat,Non-slip and eco-friendly material,SPORTS,401,75
+6,LED Desk Lamp,Adjustable brightness and color temperature,HOME,302,120
+7,Protein Powder,Whey protein for muscle recovery,FOOD,202,80
+8,Wireless Mouse,Ergonomic design for comfort,ELECTRONICS,103,90
+9,Notebook Set,5-pack of premium quality notebooks,STATIONERY,501,300
+10,Backpack,Water-resistant and spacious,BAGS,601,60
+11,Smartwatch Pro,Fitness tracker with heart rate monitor,ELECTRONICS,104,80
+12,Electric Kettle,Stainless steel with auto-shutoff,HOME,303,110
+13,Green Tea Bags,100% natural green tea,FOOD,203,250
+14,Running Shoes,Lightweight and breathable,SPORTS,402,65
+15,Desk Organizer,Multi-compartment for office supplies,STATIONERY,502,95
+16,Portable Charger,10000mAh power bank,ELECTRONICS,105,70
+17,Olive Oil,Extra virgin, cold-pressed,FOOD,204,180
+18,Air Purifier,HEPA filter for clean air,HOME,304,40
+19,Yoga Block,High-density foam for support,SPORTS,403,120
+20,Mechanical Keyboard,RGB backlit with blue switches,ELECTRONICS,106,55
+21,Notebook Stand,Adjustable height for ergonomics,HOME,305,85
+22,Protein Bars,Low sugar, high protein,FOOD,205,300
+23,Wireless Earbuds,True wireless with noise cancellation,ELECTRONICS,107,90
+24,Reusable Water Bottle,BPA-free and leak-proof,HOME,306,200
+25,Resistance Bands,Set of 5 with different resistance levels,SPORTS,404,150
+26,Whiteboard,30x40 inches with markers,STATIONERY,503,60
+27,Coffee Grinder,Adjustable grind settings,FOOD,206,75
+28,Blender,Stainless steel with 1000W motor,HOME,307,50
+29,Cycling Helmet,Lightweight and ventilated,SPORTS,405,80
+30,External Hard Drive,2TB storage with USB 3.0,ELECTRONICS,108,65
