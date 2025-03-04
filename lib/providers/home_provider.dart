@@ -12,7 +12,6 @@ class HomeProvider extends ChangeNotifier {
   List<Product> get productsReadOnly => _products;
 
   void init() {
-    repository.init();
     fetchAllProducts(Constants.tableProducts);
   }
 

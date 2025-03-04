@@ -7,12 +7,8 @@ import '../repositories/repositories.dart';
 class ItemDetailProvider extends ChangeNotifier {
   final ItemDetailRepository repository = GetIt.instance<ItemDetailRepository>();
 
-  Future<Product?> _product = Future.value(null);
+  final Future<Product?> _product = Future.value(null);
   Future<Product?> get productReadOnly => _product;
-
-  void init() {
-    repository.init();
-  }
 
   void getProductById(int productId) async {
     repository.getProductById(productId);

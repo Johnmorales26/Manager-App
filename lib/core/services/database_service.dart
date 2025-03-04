@@ -6,15 +6,8 @@ import '../../models/product.dart';
 import '../utils/constants.dart';
 
 class DatabaseService {
-  late SupabaseClient supabase;
+  final SupabaseClient supabase = GetIt.instance<SupabaseClient>();
   final Logger logger = GetIt.instance<Logger>();
-
-  void init() async {
-    supabase = SupabaseClient(
-      Constants.supabaseProjectUrl,
-      Constants.supabaseApiKey,
-    );
-  }
 
   Future<PostgrestList?> _readTable(String table) async {
     try {
@@ -84,4 +77,14 @@ class DatabaseService {
 
       logger.d(response.toString());
   }
+
+  Future<void> addProduct(Product product) async {
+    try {
+      await supabase.from(Constants.tableProducts).insert([product.toJson()]);
+      logger.d('Producto agregado exitosamente');
+    } catch (e) {
+      logger.e('Error al agregar producto: $e');
+    }
+  }
+
 }

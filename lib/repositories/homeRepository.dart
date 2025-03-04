@@ -7,10 +7,6 @@ class HomeRepository {
 
   final DatabaseService db;
 
-  void init() {
-    db.init();
-  }
-
   Future<List<Product>> fetchAllProducts(String tableProducts) {
     return db.fetchAllProducts(tableProducts);
   }

@@ -13,7 +13,6 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<ItemDetailProvider>(context);
-    provider.init();
     provider.getProductById(int.parse(productId));
 
     return Scaffold(

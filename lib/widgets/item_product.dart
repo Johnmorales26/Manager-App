@@ -47,7 +47,8 @@ class ItemProduct extends StatelessWidget {
       },
       child: ListTile(
         leading:
-            (product.image?.toLowerCase() != 'null' &&
+            (product.image != null &&
+                    product.image!.toLowerCase() != 'null' &&
                     product.image!.trim().isNotEmpty)
                 ? Image.network(
                   product.image!,

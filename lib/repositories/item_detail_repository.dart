@@ -5,10 +5,6 @@ class ItemDetailRepository {
 
   final DatabaseService db;
 
-  void init() {
-    db.init();
-  }
-
   Future<void> getProductById(int productId) async {
     db.fetchProductDetails(productId);
   }
