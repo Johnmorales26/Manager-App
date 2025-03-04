@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../models/Product.dart';
+import '../models/product.dart';
 import '../repositories/repositories.dart';
 
 class ItemDetailProvider extends ChangeNotifier {
@@ -15,7 +15,7 @@ class ItemDetailProvider extends ChangeNotifier {
   }
 
   void getProductById(int productId) async {
-    _product = repository.getProductById(productId);
+    repository.getProductById(productId);
     notifyListeners();
   }
 

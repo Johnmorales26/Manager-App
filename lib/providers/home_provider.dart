@@ -2,23 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
 import '../core/utils/constants.dart';
-import '../models/Product.dart';
+import '../models/product.dart';
 import '../repositories/repositories.dart';
 
 class HomeProvider extends ChangeNotifier {
   final HomeRepository repository = GetIt.instance<HomeRepository>();
 
-  Future<List<Product>> _products = Future.value([]);
-  Future<List<Product>> get productsReadOnly => _products;
+  List<Product> _products = [];
+  List<Product> get productsReadOnly => _products;
 
   void init() {
     repository.init();
     fetchAllProducts(Constants.tableProducts);
   }
 
-  void fetchAllProducts(String tableProducts) {
-    _products = repository.fetchAllProducts(tableProducts);
+  void fetchAllProducts(String tableProducts) async {
+    _products = await repository.fetchAllProducts(tableProducts);
     notifyListeners();
+  }
+
+  void deleteProduct(int productId) {
+    repository.deleteProduct(productId);
+    
   }
 
 }

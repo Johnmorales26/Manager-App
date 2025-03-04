@@ -1,5 +1,4 @@
 import '../core/services/database_service.dart';
-import '../models/Product.dart';
 
 class ItemDetailRepository {
   ItemDetailRepository({ required this.db });
@@ -10,8 +9,8 @@ class ItemDetailRepository {
     db.init();
   }
 
-  Future<Product?> getProductById(int productId) async {
-    return db.getProductById(productId);
+  Future<void> getProductById(int productId) async {
+    db.fetchProductDetails(productId);
   }
 
 }

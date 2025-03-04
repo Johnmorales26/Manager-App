@@ -1,17 +1,17 @@
 class Product {
   final int productId;
   final String productName;
-  final String? description;
-  final String? category;
-  final int? totalQuantity;
+  final String description;
+  final String category;
+  final int totalQuantity;
   final String? image;
 
   Product({
     required this.productId,
     required this.productName,
-    this.description,
-    this.category,
-    this.totalQuantity,
+    required this.description,
+    required this.category,
+    required this.totalQuantity,
     this.image,
   });
 
@@ -24,16 +24,5 @@ class Product {
       totalQuantity: json['total_quantity'],
       image: json['image'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'product_id': productId,
-      'product_name': productName,
-      'description': description,
-      'category': category,
-      'total_quantity': totalQuantity,
-      'image': image,
-    };
   }
 }

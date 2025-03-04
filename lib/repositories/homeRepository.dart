@@ -1,6 +1,6 @@
 import 'package:manager_app/core/services/database_service.dart';
 
-import '../models/Product.dart';
+import '../models/product.dart';
 
 class HomeRepository {
   HomeRepository({ required this.db });
@@ -13,6 +13,10 @@ class HomeRepository {
 
   Future<List<Product>> fetchAllProducts(String tableProducts) {
     return db.fetchAllProducts(tableProducts);
+  }
+
+  void deleteProduct(int productId) {
+    db.deleteProduct(productId);
   }
 
 }
