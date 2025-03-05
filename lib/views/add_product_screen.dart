@@ -15,6 +15,12 @@ class AddProductScreen extends StatelessWidget {
   final _totalQuantityController = TextEditingController();
   final _imageController = TextEditingController();
 
+  // Estilo personalizado para los TextField
+  final InputDecoration customInputDecoration = InputDecoration(
+    border: OutlineInputBorder(),
+    focusedBorder: OutlineInputBorder(),
+  );
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AddProductProvider>(context);
@@ -29,69 +35,113 @@ class AddProductScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        title: Text('Agregar Producto'),
+        title: Text(
+          'Agregar Producto',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+        ),
         leading: IconButton(
           onPressed: () {
             context.go(Routes.routeHome);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _productNameController,
-              decoration: InputDecoration(labelText: 'Nombre del Producto'),
-            ),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Descripción'),
-            ),
-            TextField(
-              controller: _categoryController,
-              decoration: InputDecoration(labelText: 'Categoría'),
-            ),
-            TextField(
-              controller: _totalQuantityController,
-              decoration: InputDecoration(labelText: 'Cantidad Total'),
-              keyboardType: TextInputType.number,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _imageController,
-                    decoration: InputDecoration(labelText: 'URL de la Imagen'),
-                    readOnly: true,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _productNameController,
+                        decoration: customInputDecoration.copyWith(
+                          labelText: 'Nombre del Producto',
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: _descriptionController,
+                        decoration: customInputDecoration.copyWith(
+                          labelText: 'Descripción',
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: _categoryController,
+                        decoration: customInputDecoration.copyWith(
+                          labelText: 'Categoría',
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      TextField(
+                        controller: _totalQuantityController,
+                        decoration: customInputDecoration.copyWith(
+                          labelText: 'Cantidad Total',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: _imageController,
+                              decoration: customInputDecoration.copyWith(
+                                labelText: 'URL de la Imagen',
+                              ),
+                              readOnly: true,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              pickImage();
+                            },
+                            icon: Icon(Icons.image),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          final product = Product(
+                            productId: 0,
+                            productName: _productNameController.text,
+                            description: _descriptionController.text,
+                            category: _categoryController.text,
+                            totalQuantity: int.parse(
+                              _totalQuantityController.text.trim(),
+                            ),
+                            image: _imageController.text,
+                          );
+                          provider.addProduct(product);
+                        },
+                        child: Text('Agregar Producto'),
+                      ),
+                    ],
                   ),
                 ),
-                IconButton(onPressed: () {
-                  pickImage();
-                }, icon: Icon(Icons.image)),
-              ],
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final product = Product(
-                  productId: 0,
-                  productName: _productNameController.text,
-                  description: _descriptionController.text,
-                  category: _categoryController.text,
-                  totalQuantity: int.parse(
-                    _totalQuantityController.text.trim(),
-                  ),
-                  image: _imageController.text
-                );
-                provider.addProduct(product);
-              },
-              child: Text('Agregar Producto'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -5,14 +5,10 @@ import '../models/product.dart';
 import '../repositories/repositories.dart';
 
 class ItemDetailProvider extends ChangeNotifier {
-  final ItemDetailRepository repository = GetIt.instance<ItemDetailRepository>();
+  final ItemDetailRepository repository =
+      GetIt.instance<ItemDetailRepository>();
 
-  final Future<Product?> _product = Future.value(null);
-  Future<Product?> get productReadOnly => _product;
-
-  void getProductById(int productId) async {
-    repository.getProductById(productId);
-    notifyListeners();
+  Future<Product?> getProductById(int productId) async {
+    return await repository.getProductById(productId);
   }
-
 }

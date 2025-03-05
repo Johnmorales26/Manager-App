@@ -17,34 +17,56 @@ class HomeScreen extends StatelessWidget {
     provider.init();
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        title: Text('Manager App'),
+        title: Text(
+          'Manager App',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () => context.go(Routes.routeScanner),
-            icon: Icon(Icons.qr_code),
+            icon: Icon(
+              Icons.qr_code,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
           ),
         ],
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Consumer<HomeProvider>(
-        builder: (context, homeProvider, child) {
-          return ListView.builder(
-            itemCount: homeProvider.productsReadOnly.length,
-            itemBuilder: (context, index) {
-              final product = homeProvider.productsReadOnly[index];
-              return ItemProduct(
-                product: product,
-                delete: () {
-                  provider.deleteProduct(product.productId);
-                },
-              );
-            },
-          );
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        child: Consumer<HomeProvider>(
+          builder: (context, homeProvider, child) {
+            return ListView.builder(
+              itemCount: homeProvider.productsReadOnly.length,
+              itemBuilder: (context, index) {
+                final product = homeProvider.productsReadOnly[index];
+                return ItemProduct(
+                  product: product,
+                  delete: () {
+                    provider.deleteProduct(product.productId);
+                  },
+                );
+              },
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go(Routes.routeAddProduct);
         },
+        child: Icon(Icons.add),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        context.go(Routes.routeAddProduct);
-      }, child: Icon(Icons.add)),
     );
   }
 }

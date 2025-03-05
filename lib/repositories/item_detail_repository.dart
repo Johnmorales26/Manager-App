@@ -1,3 +1,5 @@
+import 'package:manager_app/models/product.dart';
+
 import '../core/services/database_service.dart';
 
 class ItemDetailRepository {
@@ -5,8 +7,8 @@ class ItemDetailRepository {
 
   final DatabaseService db;
 
-  Future<void> getProductById(int productId) async {
-    db.fetchProductDetails(productId);
+  Future<Product?> getProductById(int productId) async {
+    return db.fetchProductDetails(productId);
   }
 
 }

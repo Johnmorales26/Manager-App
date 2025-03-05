@@ -1,43 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manager_app/models/product.dart';
 import 'package:manager_app/providers/item_detail_provider.dart';
+import 'package:manager_app/widgets/product_details.dart';
+import 'package:toastification/toastification.dart';
 import '../../navigation/routes.dart';
 import 'package:provider/provider.dart';
 
 class ItemDetailScreen extends StatelessWidget {
-  ItemDetailScreen({super.key, required this.productId});
+  const ItemDetailScreen({super.key, required this.productId});
 
-  late ItemDetailProvider provider;
   final String productId;
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<ItemDetailProvider>(context);
-    provider.getProductById(int.parse(productId));
-
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        title: Text(productId),
+        title: Text(
+          'Producto',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          )
+        ),
         leading: IconButton(
           onPressed: () => context.go(Routes.routeHome),
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        child: Consumer<ItemDetailProvider>(
+          builder: (context, provider, child) {
+            return FutureBuilder<Product?>(
+              future: provider.getProductById(int.parse(productId)),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError || snapshot.data == null) {
+                  toastification.show(
+                    context: context,
+                    title: Text(
+                      snapshot.hasError
+                          ? 'Error: ${snapshot.error}'
+                          : 'Producto no encontrado',
+                    ),
+                    style: ToastificationStyle.minimal,
+                  );
+                  context.go(Routes.routeHome);
+                  return const Center(
+                    child: Text('Error al cargar el producto'),
+                  );
+                }
+                return ProductDetails(product: snapshot.data!);
+              },
+            );
+          },
         ),
       ),
-      body: FutureBuilder(
-          future: provider.productReadOnly,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData) {
-              return Center(child: Text('No hay productos disponibles'));
-            } else {
-              final product = snapshot.data!;
-              return Text(product.productName);
-            }
-          }
-      )
     );
   }
 }

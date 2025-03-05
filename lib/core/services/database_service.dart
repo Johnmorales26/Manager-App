@@ -54,28 +54,19 @@ class DatabaseService {
     Future.delayed(Duration(milliseconds: 2000));
   }
 
-  Future<void> fetchProductDetails(int productId) async {
-    Logger logger = Logger();
-    final response = await supabase
-      .from('products')
-      .select('''
-        product_id,
-        product_name,
-        description,
-        category,
-        total_quantity,
-        image,
-        inventory(quantity, location_id, locations(location_name, description, buildings(building_name, address))),
-        movements(movement_id, movement_type, quantity, movement_date, users(user_name, role))
-      ''')
-      .eq('product_id', productId);
+  Future<Product?> fetchProductDetails(int productId) async {
+    final response =
+        await supabase
+            .from('products')
+            .select()
+            .eq('product_id', productId)
+            .single();
 
-      if (response.isEmpty) {
-        logger.e('No se encontraron datos para el producto con ID $productId');
-      return;
-      }
+    if (response.isEmpty) {
+      return null;
+    }
 
-      logger.d(response.toString());
+    return Product.fromJson(response);
   }
 
   Future<void> addProduct(Product product) async {
@@ -86,5 +77,4 @@ class DatabaseService {
       logger.e('Error al agregar producto: $e');
     }
   }
-
 }
